@@ -1,0 +1,210 @@
+﻿<Window x:Class="RBLXex_Rework.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RBLXex_Rework"
+        mc:Ignorable="d"
+        Title="RBLXex" Height="335" Width="620" Icon="/images/app-icon/rblxex-icon-dark.png" ResizeMode="NoResize" WindowStyle="None" BorderBrush="#FF66B3E4" BorderThickness="1,1,1,1">
+    <Window.Resources>
+        <ControlTemplate x:Key="NoMouseOverButtonTemplate" TargetType="Button">
+            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+            </Border>
+
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="{x:Static SystemColors.ControlLightBrush}" />
+                    <Setter Property="Foreground" Value="{x:Static SystemColors.GrayTextBrush}" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
+
+    <Grid x:Name="main_body" Background="#FF191919" Loaded="main_body_Loaded">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="95*"/>
+            <RowDefinition Height="213*"/>
+        </Grid.RowDefinitions>
+
+        <Frame x:Name="top_bar" Content="" Margin="0,0,0,64" Foreground="{x:Null}" MouseDown="top_bar_MouseDown" MouseMove="top_bar_MouseMove" BorderThickness="0,0,0,1" BorderBrush="#FF66B3E4" Panel.ZIndex="-1"/>
+        <Frame x:Name="side_bar" Content="" Margin="0,39,563,0" Foreground="{x:Null}" BorderThickness="0,0,1,0" BorderBrush="#FF66B3E4" Panel.ZIndex="1" Grid.RowSpan="2" Height="294"/>
+
+        <Button x:Name="executor_tab_button" HorizontalAlignment="Left" Margin="10,49,0,0" VerticalAlignment="Top" Panel.ZIndex="1" Height="36" Width="36" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="executor_tab_button_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"></Setter>
+                </Style>
+            </Button.Resources>
+
+            <Image Height="31" Width="34" Source="/images/other/execute-icon.png" RenderTransformOrigin="0.529,0.758"/>
+        </Button>
+
+        <Button x:Name="script_hub_button" HorizontalAlignment="Left" Margin="10,90,0,0" VerticalAlignment="Top" Panel.ZIndex="1" Height="36" Width="36" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="script_hub_tab_button_Click" Grid.RowSpan="2">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+
+            <Image Height="31" Width="34" Source="/images/other/script-icon.png" RenderTransformOrigin="0.529,0.758"/>
+        </Button>
+
+        <Button x:Name="settings_tab_button" HorizontalAlignment="Left" Margin="10,184,0,0" VerticalAlignment="Top" Panel.ZIndex="1" Height="36" Width="36" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="settings_tab_button_Click" Grid.Row="1">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+
+            <Image Height="31" Width="32" Source="/images/other/settings-icon.png"/>
+        </Button>
+
+        <Button x:Name="close_button" HorizontalAlignment="Left" Margin="582,6,0,0" VerticalAlignment="Top" Height="24" Width="26" BorderThickness="1,1,1,1" Click="close_button_Click" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
+            <Image x:Name="close_icon" Height="19" Width="22" Source="/images/other/close-icon.png"/>
+        </Button>
+
+        <Button x:Name="minimize_button" HorizontalAlignment="Left" Margin="541,6,0,0" VerticalAlignment="Top" Height="24" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="24" BorderThickness="1,1,1,1" Click="minimize_button_Click">
+            <Image x:Name="minimize_icon" Height="20" Width="26" Source="/images/other/minimize-icon.png"/>
+        </Button>
+
+        <Image HorizontalAlignment="Left" Height="39" VerticalAlignment="Top" Width="41" Source="/images/app-icon/rblxex-icon-white.png" MouseRightButtonDown="Image_MouseRightButtonDown" Margin="0,-1,0,0"/>
+
+        <Button x:Name="inject_button" Content="Inject" HorizontalAlignment="Left" Margin="450,6,0,0" VerticalAlignment="Top" Height="24" Width="75" BorderBrush="#FF989898" BorderThickness="1,1,1,1" Background="#FF464646" FontWeight="Bold" FontSize="14" Foreground="White" Click="inject_button_Click" HorizontalContentAlignment="Left" Padding="5,1,1,1">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+        <Image x:Name="inject_icon" Source="/images/other/inject-icon.png" Margin="503,10,99,75" Panel.ZIndex="1" Width="19"/>
+
+        <Canvas x:Name="settings_tab" HorizontalAlignment="Left" Height="294" Margin="56,39,0,0" VerticalAlignment="Top" Width="562" Grid.RowSpan="2" Visibility="Hidden">
+            <Label x:Name="producer" Content="RBLXex is produced by Ossyence" Canvas.Top="265" HorizontalAlignment="Center" VerticalAlignment="Top" Width="196" Height="29" Foreground="#FF505050" FontSize="11" VerticalContentAlignment="Bottom" FontWeight="Bold"/>
+            <Label x:Name="version_text" Content="version_number-app_name-version_stage" Canvas.Top="270" Width="208" Height="23" Foreground="#FF5F5F5F" FontSize="9" VerticalContentAlignment="Bottom" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="354" HorizontalContentAlignment="Right" FontWeight="Bold"/>
+            <Label x:Name="credits" Content="Utilising the Monaco Editor and the Flux Teams API" Canvas.Top="255" Width="256" Height="21" Foreground="#FF6B6B6B" FontSize="10" VerticalContentAlignment="Bottom" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold"/>
+
+            <Button x:Name="opening_saves_checkbox" Content="✔" Canvas.Left="10" Canvas.Top="10" HorizontalAlignment="Left" VerticalAlignment="Top" Width="31" Height="31" Panel.ZIndex="1" FontSize="16" Foreground="Black" Background="White" BorderBrush="Black" Click="opening_saves_checkbox_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Label x:Name="opening_saves_title" Content="Opening files saves files" Canvas.Left="46" Canvas.Top="10" Foreground="White" Height="22" Width="470" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="0,0,0,0" FontWeight="Bold" Panel.ZIndex="1"/>
+            <Label x:Name="opening_saves_description" Content="When opening a exploit file it will duplicate it and send it to the applications exploits folder" Canvas.Left="46" Canvas.Top="29" Foreground="#FF909090" Height="12" Width="475" FontSize="10" Padding="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" Panel.ZIndex="1"/>
+
+            <Button x:Name="auto_execution_checkbox" Content="✔" Canvas.Left="10" Canvas.Top="50" Width="31" Height="31" Panel.ZIndex="1" FontSize="16" Foreground="Black" Background="White" BorderBrush="Black" HorizontalAlignment="Center" VerticalAlignment="Top" Click="auto_execution_checkbox_Click">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Label x:Name="auto_execution_title" Content="Enable Auto Execution (WIP)" Canvas.Left="46" Canvas.Top="50" Foreground="White" Height="22" Width="470" Padding="0,0,0,0" FontWeight="Bold" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Label x:Name="auto_execution_description" Content="As soon as injection has completed the executor will run through files to autoexecute" Canvas.Left="46" Canvas.Top="69" Foreground="#FF909090" Height="12" Width="475" FontSize="10" Padding="0,0,0,0" FontWeight="Bold" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+            <Button x:Name="auto_injection_checkbox" Content="✔" Canvas.Left="10" Canvas.Top="92" Width="31" Height="31" Panel.ZIndex="1" FontSize="16" Foreground="Black" Background="White" BorderBrush="Black" HorizontalAlignment="Center" VerticalAlignment="Top" Click="auto_injection_checkbox_Click">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Label x:Name="auto_injection_title" Content="Enable Auto Injection" Canvas.Left="46" Canvas.Top="92" Foreground="White" Height="22" Width="470" Padding="0,0,0,0" FontWeight="Bold" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Label x:Name="auto_injection_description" Content="As soon as ROBLOX is run and the executor is opened we will inject into ROBLOX for you" Canvas.Left="46" Canvas.Top="111" Foreground="#FF909090" Height="12" Width="475" FontSize="10" Padding="0,0,0,0" FontWeight="Bold" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        </Canvas>
+
+        <Canvas x:Name="executor_tab" HorizontalAlignment="Left" Height="294" Margin="55,39,0,0" VerticalAlignment="Top" Width="563" Grid.RowSpan="2" Visibility="Visible">
+            <Button x:Name="execute_button" Content="Execute" HorizontalAlignment="Left" VerticalAlignment="Center" Height="33" Width="272" BorderBrush="#FF3268B1" BorderThickness="1,1,1,1" Background="#FF4594FF" FontWeight="Bold" FontSize="14" Foreground="White" Click="execute_Click" Grid.Row="1" Canvas.Left="2" Canvas.Top="259">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Button x:Name="clear_button" HorizontalAlignment="Center" VerticalAlignment="Top" Height="32" Background="#FFFF2B2B" BorderBrush="#FF5D0000" Width="83" BorderThickness="1,1,1,1" Click="clear_button_Click" Content="Clear" Foreground="White" FontSize="14" FontWeight="Bold" Padding="10,1,1,1" HorizontalContentAlignment="Left" Grid.Row="1" Canvas.Left="480" Canvas.Top="260" Margin="-2,0,0,0">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Image x:Name="clear_icon" Source="/images/other/clear-icon.png" Grid.Row="1" Canvas.Left="530" Canvas.Top="264" Height="26" Width="23" Margin="4,0,0,0"/>
+
+            <WebBrowser x:Name="monaco_browser" ForceCursor="True" InputScope="FullFilePath" Height="256" Grid.RowSpan="2" Width="563" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" KeyDown="monaco_browser_KeyDown"/>
+
+            <Button x:Name="save_file_button" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Center" Height="32" Width="98" BorderBrush="#FF3268B1" BorderThickness="1,1,1,1" Background="#FF116CE6" FontWeight="Bold" FontSize="14" Foreground="White" Click="save_file_button_Click" HorizontalContentAlignment="Left" Padding="10,1,1,1" Grid.Row="1" Canvas.Left="276" Canvas.Top="260">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Button x:Name="open_file_button" Content="Open" HorizontalAlignment="Left" VerticalAlignment="Center" Height="32" Width="98" BorderBrush="#FF3268B1" BorderThickness="1,1,1,1" Background="#FF116CE6" FontWeight="Bold" FontSize="14" Foreground="White" Click="open_file_button_Click" HorizontalContentAlignment="Left" Padding="10,1,0,1" Grid.Row="1" Canvas.Left="377" Canvas.Top="260">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Image x:Name="open_icon" Source="/images/other/open-icon.png" Grid.Row="1" Canvas.Left="350" Canvas.Top="266" Height="22" Width="22" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Image x:Name="save_icon" Source="/images/other/save-icon.png" Grid.Row="1" Canvas.Left="448" Canvas.Top="266" HorizontalAlignment="Left" VerticalAlignment="Center" Height="22" Width="23"/>
+
+            <Frame x:Name="executor_bar" Content="" Foreground="{x:Null}" Background="#FF191919" BorderBrush="#FF66B3E4" BorderThickness="0,1,0,0" Panel.ZIndex="-1" Grid.Row="1" Canvas.Left="2" Canvas.Top="256" Width="561" HorizontalAlignment="Left" VerticalAlignment="Center" Height="35"/>
+            <Image x:Name="open_icon_Copy" Source="/images/other/execute-icon.png" Canvas.Left="250" Canvas.Top="265" Height="23" Width="24" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="-2,0,0,0"/>
+        </Canvas>
+
+        <Canvas x:Name="script_hub_tab" HorizontalAlignment="Left" Height="294" Margin="55,39,0,0" VerticalAlignment="Top" Width="563" Grid.RowSpan="2" Visibility="Hidden">
+            <Button x:Name="search_through_own_checkbox" Content="✔" Canvas.Left="343" Canvas.Top="10" Width="31" Height="31" Panel.ZIndex="1" FontSize="16" Foreground="Black" Background="White" BorderBrush="Black" HorizontalAlignment="Left" VerticalAlignment="Center" Click="search_through_own_checkbox_Click">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Label x:Name="auto_execution_title1" Content="Search through Exploits folder" Canvas.Left="379" Canvas.Top="13" Foreground="White" Height="28" Width="175" Padding="0,0,0,0" FontWeight="Bold" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+            <Button x:Name="execute_script_button" Content="Execute selected" HorizontalAlignment="Center" VerticalAlignment="Top" Height="34" Width="214" BorderBrush="#FF3268B1" BorderThickness="1,1,1,1" Background="#FF4594FF" FontWeight="Bold" FontSize="14" Click="execute_script_button_Click" Grid.Row="1" Canvas.Left="342" Canvas.Top="212" Foreground="White" Margin="0,3,0,0">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Image x:Name="execute_icon_1" Source="/images/other/execute-icon.png" Canvas.Left="530" Canvas.Top="218" Height="22" Width="24" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,3,0,0"/>
+            <Button x:Name="search_through_database_checkbox" Content="✔" Canvas.Left="343" Canvas.Top="48" Width="31" Height="31" Panel.ZIndex="1" FontSize="16" Foreground="Black" Background="White" BorderBrush="Black" HorizontalAlignment="Center" VerticalAlignment="Top" Click="search_through_database_checkbox_Click">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <TextBlock Canvas.Left="377" TextWrapping="Wrap" Text="Search through exploits database" Canvas.Top="48" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" Width="180" Height="31"/>
+            <Button x:Name="favourite_button" Content="Favourite/Unfavourite" Height="33" Width="214" BorderBrush="#FFAD6216" BorderThickness="1,1,1,1" Background="#FFFF9223" FontWeight="Bold" FontSize="14" Foreground="White" Canvas.Left="342" Canvas.Top="256" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-2,0,0" Click="favourite_button_Click">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Image x:Name="favorite_icon_1" Source="/images/other/star-icon.png" Canvas.Left="530" Canvas.Top="261" Height="23" Width="24" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-2,0,0"/>
+            <Frame Content="" Height="294" Width="335" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0,0,1,0" BorderBrush="#FF66B3E4" Foreground="{x:Null}"/>
+            <Label x:Name="auto_execution_title1_Copy" Content="Favourites" Foreground="White" Height="28" Width="335" Padding="30,0,0,0" FontWeight="Bold" Panel.ZIndex="1" VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="0,0,0,1" BorderBrush="#FF66B3E4"/>
+            <Image x:Name="favourite_icon_2" Source="/images/other/star-icon.png" Canvas.Top="2" Height="24" Width="24" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2,0,0,0" Panel.ZIndex="1"/>
+            <Label x:Name="auto_execution_title1_Copy1" Content="Storage" Foreground="White" Height="28" Width="335" Padding="30,0,0,0" FontWeight="Bold" Panel.ZIndex="1" VerticalContentAlignment="Center" BorderThickness="0,1,0,1" BorderBrush="#FF66B3E4" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="113" Canvas.Left="1" Margin="-1,0,0,0"/>
+            <Image x:Name="storage_icon" Source="/images/other/storage-icon.png" Canvas.Left="3" Canvas.Top="116" Height="22" Width="24" HorizontalAlignment="Left" VerticalAlignment="Top" Panel.ZIndex="1"/>
+            <ListBox x:Name="favourite_list_box" Height="85" Width="334" d:ItemsSource="{d:SampleData ItemCount=5}" Canvas.Top="28" BorderBrush="{x:Null}" Foreground="White" Background="#FF212121" BorderThickness="0,0,0,0" SelectionChanged="favourite_list_box_SelectionChanged"/>
+            <ListBox x:Name="storage_list_box" Height="153" Width="335" d:ItemsSource="{d:SampleData ItemCount=5}" Canvas.Top="141" HorizontalAlignment="Center" VerticalAlignment="Top" Background="#FF212121" Foreground="White" BorderBrush="{x:Null}" SelectionChanged="storage_list_box_SelectionChanged"/>
+        </Canvas>
+    </Grid>
+</Window>

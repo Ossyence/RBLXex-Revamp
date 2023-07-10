@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{05E71A66-005D-4C24-8531-B29FB3DBFEF1}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>RBLXex_Rework</RootNamespace>
+    <AssemblyName>RBLXex-Rework</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>images\app-icon\rblxex-icon-dark.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RBXMSEAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Downloads\important exploit making\RBXMSEAPI.exe</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="helpers\MonacoHelper.cs" />
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="helpers\OtherAssists.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Popup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Popup.xaml.cs">
+      <DependentUpon>Popup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\other\close-icon.png" />
+    <Resource Include="images\other\minimize-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="*\">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fluxteam_net_API.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="images\other\home-icon.png" />
+    <Resource Include="images\other\inject-icon.png" />
+    <Resource Include="images\other\open-icon.png" />
+    <Resource Include="images\other\save-icon.png" />
+    <Resource Include="images\other\clear-icon.png" />
+    <Resource Include="images\other\settings-icon.png" />
+    <Resource Include="images\other\list-icon.png" />
+    <Resource Include="images\other\warning-icon.png" />
+    <Resource Include="images\other\ok-icon.png" />
+    <Resource Include="images\other\check-icon.png" />
+    <Resource Include="images\other\execute-icon.png" />
+    <Resource Include="images\other\script-icon.png" />
+    <Resource Include="images\other\star-icon.png" />
+    <Resource Include="images\other\storage-icon.png" />
+    <Resource Include="images\app-icon\rblxex-icon-dark.png" />
+    <Resource Include="images\app-icon\rblxex-icon-white.png" />
+    <Resource Include="images\app-icon\rblxex-icon-dark.ico" />
+    <Resource Include="images\app-icon\rblxex-icon-white.ico" />
+    <Content Include="Module.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="monaco_editor\base.txt" />
+    <Resource Include="monaco_editor\classfunc.txt" />
+    <Resource Include="monaco_editor\globalf.txt" />
+    <Resource Include="monaco_editor\globalns.txt" />
+    <Resource Include="monaco_editor\globalv.txt" />
+    <Content Include="monaco_editor\index.html" />
+    <Content Include="monaco_editor\vs\base\worker\workerMain.js" />
+    <Content Include="monaco_editor\vs\basic-languages\bat\bat.js" />
+    <Content Include="monaco_editor\vs\basic-languages\coffee\coffee.js" />
+    <Content Include="monaco_editor\vs\basic-languages\cpp\cpp.js" />
+    <Content Include="monaco_editor\vs\basic-languages\csharp\csharp.js" />
+    <Content Include="monaco_editor\vs\basic-languages\csp\csp.js" />
+    <Content Include="monaco_editor\vs\basic-languages\css\css.js" />
+    <Content Include="monaco_editor\vs\basic-languages\dockerfile\dockerfile.js" />
+    <Content Include="monaco_editor\vs\basic-languages\fsharp\fsharp.js" />
+    <Content Include="monaco_editor\vs\basic-languages\go\go.js" />
+    <Content Include="monaco_editor\vs\basic-languages\handlebars\handlebars.js" />
+    <Content Include="monaco_editor\vs\basic-languages\html\html.js" />
+    <Content Include="monaco_editor\vs\basic-languages\ini\ini.js" />
+    <Content Include="monaco_editor\vs\basic-languages\java\java.js" />
+    <Content Include="monaco_editor\vs\basic-languages\less\less.js" />
+    <Content Include="monaco_editor\vs\basic-languages\lua\lua.js" />
+    <Content Include="monaco_editor\vs\basic-languages\markdown\markdown.js" />
+    <Content Include="monaco_editor\vs\basic-languages\msdax\msdax.js" />
+    <Content Include="monaco_editor\vs\basic-languages\mysql\mysql.js" />
+    <Content Include="monaco_editor\vs\basic-languages\objective-c\objective-c.js" />
+    <Content Include="monaco_editor\vs\basic-languages\pgsql\pgsql.js" />
+    <Content Include="monaco_editor\vs\basic-languages\php\php.js" />
+    <Content Include="monaco_editor\vs\basic-languages\postiats\postiats.js" />
+    <Content Include="monaco_editor\vs\basic-languages\powershell\powershell.js" />
+    <Content Include="monaco_editor\vs\basic-languages\pug\pug.js" />
+    <Content Include="monaco_editor\vs\basic-languages\python\python.js" />
+    <Content Include="monaco_editor\vs\basic-languages\razor\razor.js" />
+    <Content Include="monaco_editor\vs\basic-languages\redis\redis.js" />
+    <Content Include="monaco_editor\vs\basic-languages\redshift\redshift.js" />
+    <Content Include="monaco_editor\vs\basic-languages\ruby\ruby.js" />
+    <Content Include="monaco_editor\vs\basic-languages\rust\rust.js" />
+    <Content Include="monaco_editor\vs\basic-languages\r\r.js" />
+    <Content Include="monaco_editor\vs\basic-languages\sb\sb.js" />
+    <Content Include="monaco_editor\vs\basic-languages\scss\scss.js" />
+    <Content Include="monaco_editor\vs\basic-languages\solidity\solidity.js" />
+    <Content Include="monaco_editor\vs\basic-languages\sql\sql.js" />
+    <Content Include="monaco_editor\vs\basic-languages\st\st.js" />
+    <Content Include="monaco_editor\vs\basic-languages\swift\swift.js" />
+    <Content Include="monaco_editor\vs\basic-languages\vb\vb.js" />
+    <Content Include="monaco_editor\vs\basic-languages\xml\xml.js" />
+    <Content Include="monaco_editor\vs\basic-languages\yaml\yaml.js" />
+    <Content Include="monaco_editor\vs\editor\contrib\suggest\media\String_16x.svg" />
+    <Content Include="monaco_editor\vs\editor\contrib\suggest\media\String_inverse_16x.svg" />
+    <Content Include="monaco_editor\vs\editor\editor.main.css" />
+    <Content Include="monaco_editor\vs\editor\editor.main.js" />
+    <Content Include="monaco_editor\vs\editor\editor.main.nls.de.js" />
+    <Content Include="monaco_editor\vs\editor\editor.main.nls.es.js" />
+    <Content Include="monaco_editor\vs\editor\editor.main.nls.fr.js" />
+    <Content Include="monaco_editor\vs\editor\editor.main.nls.it.js" />
+    <Content Include="monaco_editor\vs\editor\editor.main.nls.ja.js" />
+    <Content Include="monaco_editor\vs\editor\editor.main.nls.js" />
+    <Content Include="monaco_editor\vs\editor\editor.main.nls.ko.js" />
+    <Content Include="monaco_editor\vs\editor\editor.main.nls.ru.js" />
+    <Content Include="monaco_editor\vs\editor\editor.main.nls.zh-cn.js" />
+    <Content Include="monaco_editor\vs\editor\editor.main.nls.zh-tw.js" />
+    <Content Include="monaco_editor\vs\editor\standalone\browser\quickOpen\symbol-sprite.svg" />
+    <Content Include="monaco_editor\vs\language\css\cssMode.js" />
+    <Content Include="monaco_editor\vs\language\css\cssWorker.js" />
+    <Content Include="monaco_editor\vs\language\html\htmlMode.js" />
+    <Content Include="monaco_editor\vs\language\html\htmlWorker.js" />
+    <Content Include="monaco_editor\vs\language\json\jsonMode.js" />
+    <Content Include="monaco_editor\vs\language\json\jsonWorker.js" />
+    <Content Include="monaco_editor\vs\language\typescript\lib\typescriptServices.js" />
+    <Content Include="monaco_editor\vs\language\typescript\tsMode.js" />
+    <Content Include="monaco_editor\vs\language\typescript\tsWorker.js" />
+    <Content Include="monaco_editor\vs\loader.js" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
