@@ -1,4 +1,4 @@
-# RBLXex-Revamp
+# RBLXex
 ## A hasslefree, key free executor
 
 ![RBLXex](https://github.com/Ossyence/RBLXex-Revamp/assets/110287364/a374e0fe-ccf7-49fc-8ed9-fd95d1f0317b)
