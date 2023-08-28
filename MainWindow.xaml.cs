@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using RBXMSEAPI.Classes;
+using FluxAPI;
 using System.IO;
 using Microsoft.Win32;
 using System.Diagnostics;
@@ -22,6 +22,8 @@ using RBLXex_Rework.helpers;
 using System.Net;
 using Newtonsoft.Json;
 using System.IO.Compression;
+using Newtonsoft.Json.Linq;
+using FluxAPI.Classes;
 
 namespace RBLXex_Rework {
     /// <summary>
@@ -29,7 +31,8 @@ namespace RBLXex_Rework {
     /// </summary>
     public partial class MainWindow : Window {
         // Happy exploiting
-
+        private protected readonly Flux Fluxus = new Flux();
+       
         public static string roblox_name = "Windows10Universal"; //Microsoft Store Roblox
         
         public static string versionNumber = "0.0.1";
@@ -96,6 +99,16 @@ namespace RBLXex_Rework {
         private SaveFileDialog saveDialog = new SaveFileDialog { Filter = "Lua File (.lua)|*.lua|Text File (.txt)|*.txt|Any File|*" };
 
         private Point lastPoint;
+
+        private bool IsInjected() {
+            try {
+                bool b = FluxusAPI.is_injected(FluxusAPI.pid);
+
+                return b;
+            } catch (Exception e) {
+                return false;
+            }
+        }
 
         private void OpenPopup(string title, string body) {
             Popup popup = new Popup(title, body);
@@ -169,8 +182,16 @@ namespace RBLXex_Rework {
             }
         }
 
+        private bool StringToBool(string bool_) {
+            if (bool_ == "true" || bool_ == "True") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         private void UpdateCheckbox(Button box, string value) {
-            if (value == "true" || value == "True") {
+            if (StringToBool(value) == true) {
                 box.Content = "✔";
             } else {
                 box.Content = "";
@@ -220,10 +241,10 @@ namespace RBLXex_Rework {
             RepetitiveAdding("classfunc.txt", "Method");
             RepetitiveAdding("base.txt", "Keyword");
         }
-
+        
         public void Execute(string code) {
-            if (fluxteam_net_api.is_injected(fluxteam_net_api.pid)) {
-                fluxteam_net_api.run_script(fluxteam_net_api.pid, code);
+            if (IsInjected()) {
+                Fluxus.Execute(code);
             }
             else {
                 OpenPopup("Inject first", "You must inject into ROBLOX Windows Store Version first before execution.");
@@ -263,8 +284,8 @@ namespace RBLXex_Rework {
 
         private void inject_button_Click(object sender, RoutedEventArgs e) {
             if (Process.GetProcessesByName(roblox_name).Length > 0) {
-                if (!fluxteam_net_api.is_injected(fluxteam_net_api.pid)) {
-                    fluxteam_net_api.inject();
+                if (!IsInjected()) {
+                    Fluxus.Inject();
                     
                     //OpenPopup("Inject success", "Sucessfully injected dll's into Windows10Universal.exe");
                 }
@@ -287,8 +308,8 @@ namespace RBLXex_Rework {
 
         private void main_body_Loaded(object sender, RoutedEventArgs e) {
             // Turns out to get the monaco editor to load in a wpf application you need to combine several things such as the registry changes, the "mark of the web" and to start it with "file:///"
-            fluxteam_net_api.create_files(moduleDLLPath);
-
+            Fluxus.CreateDirectories();
+            
             if (!Directory.Exists(savedPath)) { Directory.CreateDirectory(savedPath); }
             if (!Directory.Exists(savedExploitsPath)) { Directory.CreateDirectory(savedExploitsPath); }
             if (!Directory.Exists(exploitsDatabasePath)) { Directory.CreateDirectory(exploitsDatabasePath); }
@@ -415,35 +436,29 @@ namespace RBLXex_Rework {
 
             version_text.Content = OtherAssists.GetSettingValue("version");
             monaco_browser.Source = new Uri(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "monaco_editor/index.html").Replace(@"C:\", "file://127.0.0.1/c$/").ToString());
-            
+
+            Fluxus.InitializeAPI("RBLXex");
+            Fluxus.CreateDirectories();
+            Fluxus.DownloadDLLs();
+            Fluxus.DoAutoAttach = StringToBool(OtherAssists.GetSettingValue("autoinject"));
+
             new Thread(() => {
                 while (true) {
-                    if (fluxteam_net_api.is_injected(fluxteam_net_api.pid)) {
-                        Dispatcher.Invoke(() =>
-                        {
-                            inject_button.Background = new SolidColorBrush(Color.FromRgb(40, 125, 60));
-                            inject_button.BorderBrush = new SolidColorBrush(Color.FromRgb(10, 60, 20));
-                        });
-                    }
-                    else {
-                        if (Process.GetProcessesByName(roblox_name).Length > 0) {
-                            if (OtherAssists.GetSettingValue("autoinject") == "true") {
-                                if (autoInjectionCounterInitialized) {
-                                    fluxteam_net_api.inject();
-                                }
-                                else {
-                                    autoInjectionCounterInitialized = true;
-                                }
-                            }
-                        } else {
-                            autoInjectionCounterInitialized = false;
+                    if (Fluxus.IsInitialized) {
+                        if (IsInjected()) {
+                            Dispatcher.Invoke(() =>
+                            {
+                                inject_button.Background = new SolidColorBrush(Color.FromRgb(40, 125, 60));
+                                inject_button.BorderBrush = new SolidColorBrush(Color.FromRgb(10, 60, 20));
+                            });
                         }
-
-                        Dispatcher.Invoke(() =>
-                        {
-                            inject_button.Background = new SolidColorBrush(Color.FromRgb(70, 70, 70));
-                            inject_button.BorderBrush = new SolidColorBrush(Color.FromRgb(152, 152, 152));
-                        });
+                        else {
+                            Dispatcher.Invoke(() =>
+                            {
+                                inject_button.Background = new SolidColorBrush(Color.FromRgb(70, 70, 70));
+                                inject_button.BorderBrush = new SolidColorBrush(Color.FromRgb(152, 152, 152));
+                            });
+                        }
                     }
 
                     Thread.Sleep(1000);
