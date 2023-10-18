@@ -1,4 +1,8 @@
-# RBLXex
+# Srry this dont work anymore Roblox added Hyperion to their UWP version of Roblox so now it dont work
+# If you want to exploit rn I would suggest using Fluster I heard its good and its just a service to rollback UWP for the moment before a actual bypass is made!
+[Download Fluster from cerealwithmilk's repo here!](https://github.com/cerealwithmilk/uwp)
+
+# RBLXex [OUTDATED]
 ## A hasslefree, key free executor
 
 ![RBLXex](https://github.com/Ossyence/RBLXex-Revamp/assets/110287364/a374e0fe-ccf7-49fc-8ed9-fd95d1f0317b)
