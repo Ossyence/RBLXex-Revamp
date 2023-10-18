@@ -17,3 +17,5 @@ RBLXex can do anything your normal executor can do in an easy, lightweight inter
 - Auto Inject
 - File saving/opening
 - Script hub (Stores you and the databases scripts!)
+
+### Note: This is my first time using WPF dont judge my UI look and stuff still learning how to make stuff look attractive
